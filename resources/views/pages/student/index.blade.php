@@ -27,8 +27,6 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       @forelse ($books as $book)
         <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-md transition duration-300">
-          <img src="{{ asset('storage/' . $book->book_img) }}" alt="{{ $book->book_name }}"
-               class="w-full h-48 object-cover">
           <div class="p-4">
             <h3 class="text-lg font-semibold text-gray-800">{{ $book->book_name }}</h3>
             <p class="text-sm text-gray-600 mt-1">By {{ $book->author->author_name ?? '-' }}</p>
