@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Http\Controllers\Admin\BookController;
 
 class LoginController extends Controller
 {
@@ -31,7 +32,6 @@ class LoginController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        // Redirect sesuai role
         return $user->isadmin ? redirect('/admin') : redirect('/student');
     }
 
@@ -59,5 +59,26 @@ class LoginController extends Controller
         }
 
         return view('pages.user.home');
+    }
+
+    // ✅ Fungsi pengecekan role student
+    private function ensureStudent()
+    {
+        if (!Auth::check() || Auth::user()->isadmin != 0) {
+            redirect('/')->send();
+            exit;
+        }
+    }
+
+    // ✅ Fungsi gabungan logika role untuk route yang sama
+    public function studentBooks()
+    {
+        if (Auth::user()->isadmin == 1) {
+            // Admin akan diarahkan ke controller BookController
+            return app(BookController::class)->index();
+        }
+
+        $this->ensureStudent();
+        return view('pages.user.books'); // Buat file ini jika belum ada
     }
 }

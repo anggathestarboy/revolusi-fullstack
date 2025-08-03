@@ -33,7 +33,12 @@
                             @endforeach
                         </ul>
                     </td>
-                    <td class="py-4 px-6 border-r border-gray-200">{{ $borrowing->borrowing_isreturned }}</td>
+                    <td class="py-4 px-6 border-r border-gray-200">
+    <span class="{{ $borrowing->borrowing_isreturned ? 'text-green-600' : 'text-red-600' }} font-semibold">
+        {{ $borrowing->borrowing_isreturned ? 'Dikembalikan' : 'Belum Dikembalikan' }}
+    </span>
+</td>
+
                     <td class="py-4 px-6 border-r border-gray-200">{{ $borrowing->created_at->format('d M Y') }}</td>
                     <td class="py-4 px-6 border-r border-gray-200">
                         <form method="POST" action="{{ route('admin.borrowings.update', $borrowing->borrowing_id) }}">

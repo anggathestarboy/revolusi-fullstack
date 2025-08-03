@@ -45,7 +45,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Halaman dashboard yang dibatasi role, tapi tanpa middleware
 Route::get('/student', [LoginController::class, 'studentPage']);
 Route::get('/admin', [LoginController::class, 'adminPage']);
-Route::get('/author', [LoginController::class, 'adminPage']);
 
 
 
