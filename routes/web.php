@@ -31,6 +31,39 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 
 
+
+
+
+Route::resource('book', BookController::class);
+
+use App\Http\Controllers\Auth\LoginController;
+
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Halaman dashboard yang dibatasi role, tapi tanpa middleware
+Route::get('/student', [LoginController::class, 'studentPage']);
+Route::get('/admin', [LoginController::class, 'adminPage']);
+Route::get('/author', [LoginController::class, 'adminPage']);
+
+
+
+use App\Http\Controllers\Student\StudentBookController;
+
+Route::prefix('student')->middleware(['auth'])->group(function () {
+    Route::get('/books', [StudentBookController::class, 'index'])->name('student.books.index');
+
+
+
+
+});
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/admin', [LoginController::class, 'adminPage'])->name('admin.dashboard');
+    Route::get('/student', [LoginController::class, 'studentPage'])->name('student.dashboard');
+    
 Route::controller(AdminAuthorController::class)->group(function () {
     Route::get('/author', 'index')->name('admin.author');
     Route::post('/author', 'store')->name('admin.author.store');
@@ -60,35 +93,8 @@ Route::controller(AdminAuthorController::class)->group(function () {
     Route::delete('/shelf/{shelf_id}', 'delete')->name('admin.shelf.delete');
 });
 
-
-
-Route::resource('book', BookController::class);
-
-use App\Http\Controllers\Auth\LoginController;
-
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-// Halaman dashboard yang dibatasi role, tapi tanpa middleware
-Route::get('/student', [LoginController::class, 'studentPage']);
-
-
-
-use App\Http\Controllers\Student\StudentBookController;
-
-Route::prefix('student')->middleware(['auth'])->group(function () {
-    Route::get('/books', [StudentBookController::class, 'index'])->name('student.books.index');
-
-
-
-
-});
-
-
-Route::middleware('auth')->group(function () {
-    Route::get('/admin', [LoginController::class, 'adminPage'])->name('admin.dashboard');
-    Route::get('/student', [LoginController::class, 'studentPage'])->name('student.dashboard');
+ Route::get('borrowing', [\App\Http\Controllers\Admin\BorrowingController::class, 'index'])->name('admin.borrowings.index');
+    Route::post('borrowing/{id}/update', [\App\Http\Controllers\Admin\BorrowingController::class, 'update'])->name('admin.borrowings.update');
 });
 
 
@@ -98,6 +104,11 @@ Route::middleware('auth')->group(function () {
 use App\Http\Controllers\BorrowingController;
 
 Route::middleware(['auth'])->group(function () {
+    Route::prefix('/admin')->group(function() {
+    Route::controller(AdminDashboardController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.dashboard');
+    });
+});
     Route::post('/borrow/{book}', [BorrowingController::class, 'borrowBook'])->name('borrow.book');
 });
 
@@ -109,31 +120,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/student/borrowing', [UserBorrowingController::class, 'index'])->name('user.borrowings');
     Route::post('/student/{borrowing}/return', [UserBorrowingController::class, 'markReturned'])->name('user.borrowings.return');
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

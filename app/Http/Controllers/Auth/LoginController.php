@@ -46,18 +46,18 @@ class LoginController extends Controller
     public function adminPage()
     {
         if (!Auth::check() || Auth::user()->isadmin != 1) {
-            abort(403, 'Akses hanya untuk admin');
+            return redirect('/');
         }
 
-        return view('pages.admin.dashboard'); // ganti sesuai view admin kamu
+        return view('pages.admin.dashboard');
     }
 
     public function studentPage()
     {
         if (!Auth::check() || Auth::user()->isadmin != 0) {
-            abort(403, 'Akses hanya untuk student');
+            return redirect('/');
         }
 
-        return view('pages.user.home'); // ganti sesuai view student kamu
+        return view('pages.user.home');
     }
 }

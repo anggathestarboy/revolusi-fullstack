@@ -33,6 +33,11 @@
                 <i class="fas fa-book"></i>
                 <span>Book</span>
             </a>
+             <a href="/borrowing"
+                class="text-sm flex items-center gap-3 px-4 py-3 rounded transition-all duration-300 hover:bg-gray-200 hover:text-black">
+                <i class="fas fa-book"></i>
+                <span>Peminjaman</span>
+            </a>
             <a href="#"
                 class="text-sm flex items-center gap-3 px-4 py-3 rounded transition-all duration-300 hover:bg-gray-200 hover:text-black">
                 <i class="fas fa-gear"></i>

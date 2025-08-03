@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Book;
 use App\Models\User;
+use App\Models\Shelf;
 use App\Models\Author;
+use App\Models\Category;
+use App\Models\Borrowing;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Publisher;
-use App\Models\Shelf;
 
 class DashboardController extends Controller
 {
@@ -22,7 +23,7 @@ class DashboardController extends Controller
         'totalPublisher' => Publisher::count(),
         'totalCategory' => Category::count(),
         'totalShelf' => Shelf::count(),
-        // 'totalBorrowings' => Borrowing::count(),
+        'totalBorrowings' => Borrowing::count(),
     ]);
 }
 }

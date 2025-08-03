@@ -16,15 +16,56 @@
 </head>
 
 <body class="bg-gray-100 font-[Poppins]">
-    <header class="bg-white border-b border-b-gray-200 shadow-md px-4 py-3 flex justify-between items-center md:px-8">
-        <div class="font-semibold text-gray-800">Admin Library</div>
-        <button class="lg:hidden rounded-md focus:outline-none" id="menuButton">
-            <i class="fas fa-bars text-gray-800"></i>
-        </button>
-        <div class="hidden lg:flex lg:items-center lg:gap-4">
-            <p class="font-medium text-sm text-gray-800">Khen Cahyo</p>
-            <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200">
-                <span class="font-semibold text-gray-800">D</span>
+  <header class="bg-white border-b border-b-gray-200 shadow-md px-4 py-3 flex justify-between items-center md:px-8">
+    <div class="font-semibold text-gray-800">Admin Library</div>
+
+    <button class="lg:hidden rounded-md focus:outline-none" id="menuButton">
+        <i class="fas fa-bars text-gray-800"></i>
+    </button>
+
+    @auth
+        <div class="relative hidden lg:flex lg:items-center lg:gap-4">
+            <p class="font-medium text-sm text-gray-800">
+                {{ Auth::user()->firstname ?? 'Admin' }} {{ Auth::user()->lastname ?? '' }}
+            </p>
+            <button id="profileDropdownButton" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 focus:outline-none">
+                <span class="font-semibold text-gray-800">
+                    {{ strtoupper(substr(Auth::user()->firstname ?? 'A', 0, 1)) }}
+                </span>
+            </button>
+
+            <!-- Dropdown -->
+            <div id="profileDropdown" class="hidden absolute top-12 right-0 w-40 bg-white border border-gray-200 shadow-lg rounded-md z-50">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit"
+                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                    </button>
+                </form>
             </div>
         </div>
-    </header>
+
+        <script>
+            // Toggle dropdown
+            document.addEventListener("DOMContentLoaded", function () {
+                const button = document.getElementById('profileDropdownButton');
+                const dropdown = document.getElementById('profileDropdown');
+
+                if (button && dropdown) {
+                    button.addEventListener('click', function (e) {
+                        dropdown.classList.toggle('hidden');
+                        e.stopPropagation();
+                    });
+
+                    document.addEventListener('click', function (e) {
+                        if (!dropdown.contains(e.target) && !button.contains(e.target)) {
+                            dropdown.classList.add('hidden');
+                        }
+                    });
+                }
+            });
+        </script>
+    @endauth
+</header>
+

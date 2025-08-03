@@ -56,12 +56,12 @@
     </div>
 
     {{-- Total Peminjaman (aktifkan jika ingin) --}}
-    {{-- 
+    
     <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
         <p class="text-sm text-gray-500">Total Peminjaman</p>
         <h2 class="text-3xl font-semibold text-gray-800">{{ $totalBorrowings }}</h2>
     </div>
-    --}}
+    
 </div>
 
 

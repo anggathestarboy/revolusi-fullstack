@@ -16,7 +16,7 @@
 <!-- Welcome Section -->
 <section class="bg-gray-50 py-10 px-4">
   <div class="max-w-xl mx-auto flex flex-col items-center text-center gap-4">
-    <img src="img/buku.png" alt="Book Image" class="w-24" />
+    <img src="https://cdn-icons-png.freepik.com/512/15772/15772135.png" alt="Book Image" class="w-24" />
     <h2 class="text-xl font-semibold">WELCOME TO LIBRARY APP</h2>
     <p class="text-sm text-gray-700">Choose the best books you want to read in here.</p>
     <button class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition">
