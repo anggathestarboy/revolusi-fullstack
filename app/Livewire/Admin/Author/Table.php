@@ -2,67 +2,73 @@
 
 namespace App\Livewire\Admin\Author;
 
-use App\Models\Author;
 use Livewire\Component;
+use App\Models\Author;
 use Livewire\WithPagination;
-use App\Http\Requests\AuthorRequest;
 
 class Table extends Component
 {
     use WithPagination;
 
-    public string $authorName = '';
+    public $authorName = '';
+    public $authorId;
+    public $author_name;
+    public $author_description;
+    public $confirmingAuthorDeletion = false;
+    public $showEditModal = false;
+
+    protected $paginationTheme = 'tailwind';
+
+    public function updatingAuthorName()
+    {
+        $this->resetPage();
+    }
 
     public function render()
     {
-        $authors = $this->authorName !== '' ? Author::getAuthorsByName($this->authorName) : Author::paginate(5);
+        $authors = $this->authorName !== ''
+            ? Author::where('author_name', 'like', '%' . $this->authorName . '%')->paginate(10)
+            : Author::paginate(10);
 
-        return view('livewire.admin.author.table', ['authors' => $authors]);
-
-        
+        return view('livewire.admin.author.table', compact('authors'));
     }
 
-    public function store (AuthorRequest $request) {
-    $data = array(
-        'author_name' => $request->input('author_name'),
-        'author_description' => $request->input('author_description'),
-    );
-    $operation = Author::create($data);
-
-    if ($operation) {
-        return redirect()->route('admin.author')->with('success', 'Successfully create author data');
-    } else {
-        return redirect()->route('admin.author')->with('error', 'Failed to create author data');
-    }
-}
-
-public function update (AuthorRequest $request, string $author_id) {
-    $data = array(
-        'author_name' => $request->input('author_name'),
-        'author_description' => $request->input('author_description'),
-    );
-
-
-    $operation = Author::updateAuthor($data, $author_id);
-
-    if ($operation) {
-        return redirect()->route('admin.author')->with('success', 'Successfully update author data');
-    } else {
-        return redirect()->route('admin.author')->with('error', 'Failed to update author data');
-    }
-}
-
-
-public function delete (string $author_id) {
-   $operation = Author::deleteAuthor($author_id);
-
-    if ($operation) {
-        return redirect()->route('admin.author')->with('success', 'Successfully delete author data');
-    } else {
-        return redirect()->route('admin.author')->with('error', 'Failed to delete author data');
+    public function edit($id)
+    {
+        $author = Author::findOrFail($id);
+        $this->authorId = $author->id;
+        $this->author_name = $author->author_name;
+        $this->author_description = $author->author_description;
+        $this->showEditModal = true;
     }
 
+    public function update()
+    {
+        $this->validate([
+            'author_name' => 'required|string|max:255',
+            'author_description' => 'nullable|string',
+        ]);
 
+        $author = Author::findOrFail($this->authorId);
+        $author->update([
+            'author_name' => $this->author_name,
+            'author_description' => $this->author_description,
+        ]);
 
-}
+        session()->flash('success', 'Author updated successfully.');
+        $this->showEditModal = false;
+    }
+
+    public function confirmDelete($id)
+    {
+        $this->authorId = $id;
+        $this->confirmingAuthorDeletion = true;
+    }
+
+    public function delete()
+    {
+        Author::findOrFail($this->authorId)->delete();
+        session()->flash('success', 'Author deleted successfully.');
+        $this->confirmingAuthorDeletion = false;
+    }
 }

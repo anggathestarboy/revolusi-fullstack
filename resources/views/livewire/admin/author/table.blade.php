@@ -9,7 +9,6 @@
     class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
 >
         <div class="overflow-x-auto">
-                    {{-- <input type="search" id="searchAuthor" placeholder="Search author by name" name="author_name" class="input input-bordered input-sm w-full bg-transparent mb-4"/> --}}
             <table class="min-w-full text-sm text-left">
                 <thead class="border-b font-medium">
                     <tr>
@@ -20,13 +19,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($authors as $author)
-                        
-                    <tr class="border-t"  onclick="document.getElementById('authorDetailModal-{{ $author->author_id }}').showModal()">
-                        <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                        <td class="px-4 py-2">{{ $author->author_name }}</td>
-                        <td class="px-4 py-2">{{ $author->author_description }}</td>
-                    </tr>
+                  @foreach ($authors as $author)
+    <tr class="border-t" wire:key="author-{{ $author->author_id }}"
+        onclick="document.getElementById('authorDetailModal-{{ $author->author_id }}').showModal()">
+        <td class="px-4 py-2">{{ $loop->iteration }}</td>
+        <td class="px-4 py-2">{{ $author->author_name }}</td>
+        <td class="px-4 py-2">{{ $author->author_description }}</td>
+    </tr>
 <dialog id="authorDetailModal-{{ $author->author_id }}" class="modal">
     <div class="modal-box bg-white rounded-lg shadow-lg w-full max-w-xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" style="padding: 20px">
         <div class="flex items-center justify-between mb-4">
@@ -141,3 +140,23 @@
         </form>
     </div>
 </div>
+
+
+
+<script>
+    let currentUrl = window.location.href;
+
+    const observer = new MutationObserver(() => {
+        if (window.location.href !== currentUrl) {
+            currentUrl = window.location.href;
+            window.location.reload(); // Paksa refresh saat URL berubah
+        }
+    });
+
+    observer.observe(document, {subtree: true, childList: true});
+
+
+    
+</script>
+
+

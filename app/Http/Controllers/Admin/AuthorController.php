@@ -11,11 +11,9 @@ use App\Http\Requests\AuthorRequest;
 class AuthorController extends Controller
 {
    public function index () {
-    $authors = Author::paginate(5);
 
-    return view('pages.admin.author', array(
-        'authors' => $authors
-    ));
+
+    return view('pages.admin.author');
 }
 
 
@@ -66,13 +64,6 @@ public function delete (string $author_id) {
 
 
 
-// public function search(Request $request) {
-//     $author_name = $request->query('author_name', '');
-
-//     $authors = Author::getAuthorsByName($author_name);
-
-//     return response()->json($authors);
-// }
 
 
 
