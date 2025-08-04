@@ -20,9 +20,8 @@ class Navbar extends Component
         if ($loggedIn && $user) {
             if ($user->isadmin == 1) {
                 $menus = [
-                    ['label' => 'Dashboard Admin', 'href' => '/admin'],
+                    ['label' => 'Dashboard', 'href' => '/admin'],
                     ['label' => 'Kelola Buku', 'href' => '/admin/books'],
-                    ['label' => 'Keluar', 'href' => '/logout'],
                 ];
             } else {
                 $menus = [

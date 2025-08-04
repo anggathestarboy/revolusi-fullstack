@@ -60,4 +60,10 @@ public static function deleteAuthor (string $author_id) {
 
     return $author;
 }
+
+
+public static function getAuthorsByName(string $name)
+{
+    return self::where('author_name', 'like', "%$name%")->paginate(10);
+}
 }

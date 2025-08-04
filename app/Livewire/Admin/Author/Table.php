@@ -1,25 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Livewire\Admin\Author;
 
 use App\Models\Author;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Livewire\Component;
+use Livewire\WithPagination;
 use App\Http\Requests\AuthorRequest;
 
-
-class AuthorController extends Controller
+class Table extends Component
 {
-   public function index () {
-    $authors = Author::paginate(5);
+    use WithPagination;
 
-    return view('pages.admin.author', array(
-        'authors' => $authors
-    ));
-}
+    public string $authorName = '';
 
+    public function render()
+    {
+        $authors = $this->authorName !== '' ? Author::getAuthorsByName($this->authorName) : Author::paginate(5);
 
-public function store (AuthorRequest $request) {
+        return view('livewire.admin.author.table', ['authors' => $authors]);
+
+        
+    }
+
+    public function store (AuthorRequest $request) {
     $data = array(
         'author_name' => $request->input('author_name'),
         'author_description' => $request->input('author_description'),
@@ -62,20 +65,4 @@ public function delete (string $author_id) {
 
 
 }
-
-
-
-
-// public function search(Request $request) {
-//     $author_name = $request->query('author_name', '');
-
-//     $authors = Author::getAuthorsByName($author_name);
-
-//     return response()->json($authors);
-// }
-
-
-
-
-
 }

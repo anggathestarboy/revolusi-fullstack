@@ -65,6 +65,7 @@ Route::middleware('auth')->group(function () {
     
 Route::controller(AdminAuthorController::class)->group(function () {
     Route::get('/author', 'index')->name('admin.author');
+    // Route::get('/author', 'search')->name('admin.searchAuthor');
     Route::post('/author', 'store')->name('admin.author.store');
     Route::patch('/author/{author_id}', 'update')->name('admin.author.update');
     Route::delete('/author/{author_id}', 'delete')->name('admin.author.delete');
