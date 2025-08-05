@@ -21,7 +21,7 @@ class Navbar extends Component
             if ($user->isadmin == 1) {
                 $menus = [
                     ['label' => 'Dashboard', 'href' => '/admin'],
-                    ['label' => 'Kelola Buku', 'href' => '/book'],
+                    ['label' => 'Books', 'href' => '/book'],
                 ];
             } else {
                 $menus = [

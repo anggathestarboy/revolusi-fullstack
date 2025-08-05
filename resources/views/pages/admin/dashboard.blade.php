@@ -25,13 +25,13 @@
 
   {{-- Total Penulis --}}
     <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-        <p class="text-sm text-gray-500">Total Penulis</p>
+        <p class="text-sm text-gray-500">Authors</p>
         <h2 class="text-3xl font-semibold text-gray-800">{{ $totalAuthors }}</h2>
     </div>
 
     {{-- Total Buku --}}
     <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-        <p class="text-sm text-gray-500">Total Buku</p>
+        <p class="text-sm text-gray-500">Books</p>
         <h2 class="text-3xl font-semibold text-gray-800">{{ $totalBooks }}</h2>
     </div>
 
@@ -39,26 +39,26 @@
 
     {{-- Total Pengguna --}}
     <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-        <p class="text-sm text-gray-500">Total Pengguna</p>
+        <p class="text-sm text-gray-500">Users</p>
         <h2 class="text-3xl font-semibold text-gray-800">{{ $totalUsers }}</h2>
     </div>
     <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-        <p class="text-sm text-gray-500">Total Publisher</p>
+        <p class="text-sm text-gray-500">Publishers</p>
         <h2 class="text-3xl font-semibold text-gray-800">{{ $totalPublisher }}</h2>
     </div>
     <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-        <p class="text-sm text-gray-500">Total Category</p>
+        <p class="text-sm text-gray-500">Categories</p>
         <h2 class="text-3xl font-semibold text-gray-800">{{ $totalCategory }}</h2>
     </div>
     <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-        <p class="text-sm text-gray-500">Total Shelf</p>
+        <p class="text-sm text-gray-500">Shelfs</p>
         <h2 class="text-3xl font-semibold text-gray-800">{{ $totalShelf }}</h2>
     </div>
 
     {{-- Total Peminjaman (aktifkan jika ingin) --}}
     
     <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-        <p class="text-sm text-gray-500">Total Peminjaman</p>
+        <p class="text-sm text-gray-500">Borrowing</p>
         <h2 class="text-3xl font-semibold text-gray-800">{{ $totalBorrowings }}</h2>
     </div>
     

@@ -21,11 +21,13 @@ class Borrowing extends Model
         'borrowing_fine',
     ];
 
+// App\Models\Borrowing.php
 
-    public function user()
+public function user()
 {
-    return $this->belongsTo(User::class, 'borrowing_user_id');
+    return $this->belongsTo(User::class, 'borrowing_user_id', 'id');
 }
+
 
 public function details()
 {

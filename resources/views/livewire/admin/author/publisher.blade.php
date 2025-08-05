@@ -3,7 +3,7 @@
         <h2 class="text-base font-semibold mb-2">publisher Table</h2>
         <input
     type="search"
-    placeholder="Search author by name"
+    placeholder="Search publisher by name"
     wire:model.live.debounce.250ms="publisherName"
     class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
 >
