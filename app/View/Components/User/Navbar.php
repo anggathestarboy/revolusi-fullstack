@@ -25,8 +25,8 @@ class Navbar extends Component
                 ];
             } else {
                 $menus = [
-                    ['label' => 'Dashboard', 'href' => '/student'],
-                    ['label' => 'Books', 'href' => '/student/books'],
+                    ['label' => 'Dashboard', 'href' => '/'],
+                    ['label' => 'Books', 'href' => '/student/book'],
                     ['label' => 'Borrowings', 'href' => '/student/borrowing'],
                 ];
             }

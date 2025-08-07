@@ -35,15 +35,21 @@
             </button>
 
             <!-- Dropdown -->
-            <div id="profileDropdown" class="hidden absolute top-12 right-0 w-40 bg-white border border-gray-200 shadow-lg rounded-md z-50">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit"
-                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                    </button>
-                </form>
-            </div>
+           <div id="profileDropdown" class="hidden absolute top-12 right-0 w-40 bg-white border border-gray-200 shadow-lg rounded-md z-50">
+    <a href="{{ route('profile.edit', Auth::user()->id) }}"
+       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+        <i class="fas fa-user-edit mr-2"></i> Edit Profile
+    </a>
+    <form method="POST" action="{{ route('auth.logout') }}">
+        @csrf
+        <button type="submit"
+            class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+        </button>
+    </form>
+</div>
+
+
         </div>
 
         <script>

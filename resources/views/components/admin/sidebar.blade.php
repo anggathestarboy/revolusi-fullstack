@@ -8,37 +8,37 @@
                 <span>Dashboard</span>
             </a>
 
-             <a href="/author"
+             <a href="/admin/author"
                 class="text-sm flex items-center gap-3 px-4 py-3 rounded transition-all duration-300 hover:bg-gray-200 hover:text-black">
                 <i class="fas fa-user"></i>
                 <span>Author</span>
             </a>
-             <a href="/publisher"
+             <a href="/admin/publisher"
                 class="text-sm flex items-center gap-3 px-4 py-3 rounded transition-all duration-300 hover:bg-gray-200 hover:text-black">
                 <i class="fas fa-globe"></i>
                 <span>Publisher</span>
             </a>
-             <a href="/category"
+             <a href="/admin/category"
                 class="text-sm flex items-center gap-3 px-4 py-3 rounded transition-all duration-300 hover:bg-gray-200 hover:text-black">
                 <i class="fas fa-tags"></i>
                 <span>Category</span>
             </a>
-             <a href="/shelf"
+             <a href="/admin/shelf"
                 class="text-sm flex items-center gap-3 px-4 py-3 rounded transition-all duration-300 hover:bg-gray-200 hover:text-black">
                 <i class="fas fa-layer-group"></i>
                 <span>Shelf</span>
             </a>
-             <a href="/book"
+             <a href="/admin/book"
                 class="text-sm flex items-center gap-3 px-4 py-3 rounded transition-all duration-300 hover:bg-gray-200 hover:text-black">
                 <i class="fas fa-book"></i>
                 <span>Book</span>
             </a>
-             <a href="/borrowing"
+             <a href="/admin/borrowing"
                 class="text-sm flex items-center gap-3 px-4 py-3 rounded transition-all duration-300 hover:bg-gray-200 hover:text-black">
                 <i class="fas fa-clock"></i>
                 <span>Borrowing</span>
             </a>
-            <a href="#"
+            <a href="{{ route('profile.edit', Auth::user()->id) }}"
                 class="text-sm flex items-center gap-3 px-4 py-3 rounded transition-all duration-300 hover:bg-gray-200 hover:text-black">
                 <i class="fas fa-gear"></i>
                 <span>Settings</span>

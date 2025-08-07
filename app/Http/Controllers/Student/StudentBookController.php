@@ -16,7 +16,7 @@ class StudentBookController extends Controller
             'books' => Book::with(['author', 'publisher', 'category', 'shelf'])->get(),
             'menus' => [
                 ['label' => 'Dashboard', 'href' => '/'],
-                ['label' => 'Books', 'href' => '/student/books'],
+                ['label' => 'Books', 'href' => '/student/book'],
             ['label' => 'Borrowings', 'href' => '/student/borrowing'],
 
             ],
@@ -25,4 +25,6 @@ class StudentBookController extends Controller
         ]);
     }
 }
+
+
 

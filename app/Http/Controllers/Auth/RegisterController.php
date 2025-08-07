@@ -2,29 +2,31 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
 
 class RegisterController extends Controller
 {
-    public function index() {
+    public function index () {
         return view('pages.auth.register');
     }
 
+    public function action (RegisterRequest $request) {
+        $data = array(
+            'firstname' => $request->input('firstname'),
+            'lastname' => $request->input('lastname'),
+            'username' => $request->input('username'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+        );
+        $operation = User::create($data);
 
-    public function store(Request $request) {
-        $request->validate([
-            'firstname' => 'required|max:150',
-            'lastname' => 'required|max:150',
-            'username' => 'required|max:150',
-            'email' => 'required|max:150',
-            'password' => 'required|max:150',
-
-        ]);
-
-
-        User::create($request->all());
-        return redirect('/register')->with('success', 'data berhasil di kirim');
+        if ($operation) {
+            return redirect()->back()->with('success', 'Successfully register account!');
+        } else {
+            return redirect()->back()->with('error', 'Failed when register account!');
+        }
     }
 }

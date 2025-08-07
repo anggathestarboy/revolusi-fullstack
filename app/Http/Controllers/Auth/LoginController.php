@@ -2,83 +2,54 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-use App\Http\Controllers\Admin\BookController;
 
 class LoginController extends Controller
 {
-    public function showLoginForm()
+    // Tampilkan form login
+    public function index()
     {
-        return view('pages.coba.login');
+        return view('pages.auth.login');
     }
 
-    public function login(Request $request)
+    // Proses login
+    public function action(LoginRequest $request)
     {
-        $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
-        ]);
+        $credentials = $request->only('email', 'password');
 
-        $user = User::where('username', $request->username)->first();
+        // Coba ambil user berdasarkan email
+        $user = User::where('email', $credentials['email'])->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return back()->withErrors(['username' => 'Username atau password salah.']);
+        // Validasi user dan password
+        if ($user && Hash::check($credentials['password'], $user->password)) {
+            Auth::login($user);
+
+            // Redirect sesuai role
+            if ($user->isadmin) {
+                return redirect()->route('admin.dashboard'); // route untuk admin
+            } else {
+                return redirect()->route('user.home'); // route untuk user biasa
+            }
         }
 
-        Auth::login($user);
-        $request->session()->regenerate();
-
-        return $user->isadmin ? redirect('/admin') : redirect('/student');
+        // Jika gagal login
+        return back()->withErrors([
+            'email' => 'Email atau password salah.',
+        ])->withInput();
     }
 
+    // Logout
     public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
-    }
 
-    public function adminPage()
-    {
-        if (!Auth::check() || Auth::user()->isadmin != 1) {
-            return redirect('/');
-        }
-
-        return view('pages.admin.dashboard');
-    }
-
-    public function studentPage()
-    {
-        if (!Auth::check() || Auth::user()->isadmin != 0) {
-            return redirect('/');
-        }
-
-        return view('pages.user.home');
-    }
-
-    // ✅ Fungsi pengecekan role student
-    private function ensureStudent()
-    {
-        if (!Auth::check() || Auth::user()->isadmin != 0) {
-            redirect('/')->send();
-            exit;
-        }
-    }
-
-    // ✅ Fungsi gabungan logika role untuk route yang sama
-    public function studentBooks()
-    {
-        if (Auth::user()->isadmin == 1) {
-            // Admin akan diarahkan ke controller BookController
-            return app(BookController::class)->index();
-        }
-
-        $this->ensureStudent();
-        return view('pages.user.books'); // Buat file ini jika belum ada
+        return redirect('/');
     }
 }

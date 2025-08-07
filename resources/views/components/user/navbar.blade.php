@@ -36,15 +36,26 @@
           </button>
 
           {{-- Dropdown menu --}}
-          <div id="profileMenu"
-            class="hidden absolute right-0 top-14 mt-2 w-48 bg-white border rounded shadow-lg z-50 text-sm text-gray-700 transition ease-out duration-200">
-            <form method="POST" action="/logout">
-              @csrf
-              <button type="submit"
-                class="w-full text-left px-4 py-2 hover:bg-gray-100 transition-all duration-150">🚪 Logout</button>
-            </form>
-          </div>
-        </li>
+         <!-- Profile Dropdown Menu -->
+<div id="profileMenu"
+    class="hidden absolute right-0 top-14 mt-2 w-48 bg-white border rounded shadow-lg z-50 text-sm text-gray-700 transition ease-out duration-200">
+
+    {{-- Link ke halaman edit profil --}}
+    <a href="{{ route('profile.edit', Auth::user()->id) }}"
+        class="block px-4 py-2 hover:bg-gray-100 transition-all duration-150">
+        ✏️ Edit Profil
+    </a>
+
+    {{-- Logout --}}
+    <form method="POST" action="/logout">
+        @csrf
+        <button type="submit"
+            class="w-full text-left px-4 py-2 hover:bg-gray-100 transition-all duration-150">
+            🚪 Logout
+        </button>
+    </form>
+</div>
+        
       @else
         <li class="mt-4 flex flex-col gap-4 md:flex-row md:items-center lg:mt-0 lg:ml-4">
           <a href="/login"

@@ -40,7 +40,7 @@ class BookController extends Controller
     public function store(BookRequest $request)
     {
         Book::storeBook($request->validated());
-        return redirect('/book')->with('success', 'Book created successfully.');
+        return redirect('/admin/book')->with('success', 'Book created successfully.');
     }
 
     // READ: Tampilkan detail buku untuk edit
@@ -59,14 +59,14 @@ class BookController extends Controller
     public function update(BookRequest $request, Book $book)
     {
         $book->updateBook($request->validated());
-        return redirect('/book')->with('success', 'Book updated successfully.');
+        return redirect('/admin/book')->with('success', 'Book updated successfully.');
     }
 
     // DELETE: Hapus buku
     public function destroy(Book $book)
     {
         $book->deleteBook();
-        return redirect('/book')->with('success', 'Book deleted successfully.');
+        return redirect('/admin/book')->with('success', 'Book deleted successfully.');
     }
 
     // READ: Tampilkan detail buku (opsional)

@@ -28,9 +28,9 @@ class ShelfController extends Controller
         $operation = Shelf::createShelf($data);
 
         if ($operation) {
-            return redirect('/shelf')->with('success', 'Successfully created shelf data');
+            return redirect('/admin/shelf')->with('success', 'Successfully created shelf data');
         } else {
-            return redirect('/shelf')->with('error', 'Failed to create shelf data');
+            return redirect('/admin/shelf')->with('error', 'Failed to create shelf data');
         }
     }
 
@@ -44,9 +44,9 @@ class ShelfController extends Controller
         $operation = Shelf::updateShelf($shelf_id, $data);
 
         if ($operation) {
-            return redirect('/shelf')->with('success', 'Successfully updated shelf data');
+            return redirect('/admin/shelf')->with('success', 'Successfully updated shelf data');
         } else {
-            return redirect('/shelf')->with('error', 'Failed to update shelf data');
+            return redirect('/admin/shelf')->with('error', 'Failed to update shelf data');
         }
     }
 
@@ -55,9 +55,9 @@ class ShelfController extends Controller
         $operation = Shelf::deleteShelf($shelf_id);
 
         if ($operation) {
-            return redirect('/shelf')->with('success', 'Successfully deleted shelf data');
+            return redirect('/admin/shelf')->with('success', 'Successfully deleted shelf data');
         } else {
-            return redirect('/shelf')->with('error', 'Failed to delete shelf data');
+            return redirect('/admin/shelf')->with('error', 'Failed to delete shelf data');
         }
     }
 }
